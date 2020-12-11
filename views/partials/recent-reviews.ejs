@@ -1,0 +1,30 @@
+<div id="sectionLabel">
+  RECENT REVIEWS
+  <hr>
+</div>
+
+<div class="row">
+  <div class="all-reviews">
+    <% reviews.forEach(obj=>{ %>
+    <div class="recent-review">
+      <a href="/movies/<%=obj.movie_id%>"><img class="pull-left" src = <%= obj.movie_poster %> ></a>
+      <div class="recent-review-text">
+	<div class="movie-name">
+	  <a href="/movies/<%=obj.movie_id%>"><%=obj.movie_title%></a>
+	</div>
+	<div class="user-name">
+	  Review by <a class="actual-user-name" href="/users/<%=obj.user_name%>"><%=obj.user_name%></a>
+	</div>
+	<div class="user-review">
+	  "<%=obj.review_body%>"
+	</div>
+      </div>
+    </div>
+
+    <hr>
+    <% }); %>
+  </div>
+  <div class = "col top-reviewers">
+    <% include sidepanel.ejs %>
+  </div>
+</div>

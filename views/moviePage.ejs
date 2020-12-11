@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <% include partials/head.ejs %>
+
+  <body>
+    <% include partials/header.ejs %>
+
+    <div class="myAlert-top alert alert-success">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <strong>Success!</strong> Indicates a successful or positive action.
+    </div>
+
+    <div class = "container">
+
+      <div id="heading">
+	<h1 class="text-center">
+	</h1>
+      </div>
+
+      <div id="sectionLabel">
+	MORE INFORMATION
+	<hr>
+      </div>
+
+      <div class="movie-info">
+	<% movieInfo.forEach(obj=>{ %>
+	<div class="movie-info-row" id="movieInfo">
+	  <div class="movie-info-poster">
+	    <img src = <%= obj.poster_path %> >
+
+
+	    <div class="movie-info-buttons">
+
+	      <div class="movie-info-login">
+		<% if (!req.user) { %>
+		<div class="movie-info-login-button">
+		  <a href="/login"> Sign in to log this movie </a>
+		</div>
+		<% } %>
+	      </div>
+
+
+	      <% if (req.user) { %>
+
+	      <div class="movie-info-seen">
+		<form action="/users/<%=req.user.username%>/add/<%=obj.id%>" method = "POST">
+		  <button type="submit"  class="btn btn-info" >
+		    <i class="fa fa-eye"></i>
+		  </button>
+		  <input type="hidden" name="poster_path" value="<%=obj.poster_path%>"></input>
+		  <input type="hidden" name="title" value="<%=obj.title%>"></input>
+		</form>
+	      </div>
+
+	      <div class="movie-info-heart">
+		<form action="/users/<%=req.user.username%>/favorite/<%=obj.id%>" method = "POST">
+		  <button type="submit"  class="btn btn-danger text-white"  onclick="alert('This movie has been added to your favorites')" >
+		    <span><i class="fa fa-heart"></i></span> </button>
+		  <input type="hidden" name="poster_path" value="<%=obj.poster_path%>"></input>
+		</form>
+	      </div>
+	      <% } %>
+
+	    </div>
+
+
+	    <div class="movie-info-additional">
+	      <div class="movie-info-details-top">Details</div>
+	      <div class="movie-info-runtime">Runtime: <%=obj.runtime%> min</div>
+	      <div class="movie-info-rating">Rating: <%=obj.vote_average%></div>
+	      <div class="movie-info-votes">Votes: <%=obj.vote_count%></div>
+	      <div class="movie-info=studio">Studio: <%=obj.production_companies%></div>
+	      <div class="movie-info-country">Country: <%=obj.production_countries%></div>
+	    </div>
+	  </div>
+	  <div class="movie-info-details">
+	    <div class="movie-info-title"><%=obj.title%></div><div class="movie-info-release">Released on <%= obj.release_date %></div>
+	    <br>
+	    <div class="movie-info-tagline"><%= obj.tagline %></div>
+	    <div class="movie-info-overview"><br><%= obj.overview %></div>
+	  </div>
+	</div>
+      </div>
+
+
+
+      <% if(req.user) { %>
+      <div class="movie-info-user-box">
+	<div id="sectionLabel">
+	  REVIEW THIS MOVIE
+	  <hr>
+	</div>
+
+	<div class="movie-info-review-type">
+
+	  <form action="/users/<%=req.user.username%>/review/" method = "post">
+	    <textarea class="form-control" rows="5"  name="review"></textarea>
+	    <input type="hidden" name="movie_id" value="<%=obj.id%>" >
+	    <input type="hidden" name="poster_path" value="<%=obj.poster_path%>" >
+	    <input type="hidden" name="title" value="<%=obj.title%>" >
+	    <button type="submit" class="btn btn-info" style="margin:2%;margin-left:0"><i class="fa fa-paper-plane"></i>Post</button>
+	  </form>
+	</div>
+
+      </div>
+      <% } %>
+
+      <div class="movie-info-user-review">
+	<div id="sectionLabel">
+	  RECENT USER REVIEWS
+	  <hr>
+	</div>
+
+	<div class="movie-info-recent">
+	  <% movie_reviews.forEach(obj=>{ %>
+	  <div class="movie-info-recent-review">
+	    <div class="movie-info-reviewer">
+	      Review by <a href="/users/<%=obj.user_name%>"><%=obj.user_name%></a>
+	    </div>
+	    <div class="movie-info-reviewer-body">
+	      "<%=obj.review_body%>"
+	    </div>
+	  </div>
+	  <% }); %>
+	  <% }); %>
+	</div>
+      </div>
+  </body>
+
+  <% include partials/footer.ejs %>
+
+</html>

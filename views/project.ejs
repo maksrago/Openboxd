@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <% include partials/head.ejs %>
+  <body>
+    <% include partials/header.ejs %>
+
+    <div class = "container user-profile-page">
+
+      <div id="user-profile-top-id">
+	<div class="user-profile-top">
+	  <div class="user-profile-username"><%= users.username %></div>
+	  <div class="user-profile-movies-watched"><%= users.movies_watched %> movies watched</div>
+	  <div class="user-profile-review-count"><%= users.review_count %> reviews</div>
+	</div>
+      </div>
+
+      <div class="user-profile-favorites">
+	<div id="sectionLabel" class="user-profile-section">
+	  ALL-TIME FAVORITES
+	  <hr>
+	</div>
+	<div class="user-profile-content">
+	  <% var favorite = users.favorites.slice(0,4);%>
+	  <% favorite.forEach(path=>{ %>
+	  <img src = <%=path%>>
+	  <% }); %>
+	</div>
+      </div>
+
+      <div class="user-profile-recently-watched">
+	<div id="sectionLabel" class="user-profile-section">
+	  RECENTLY WATCHED
+	  <a class="user-profile-all" href="/users/<%=users.username%>/all">ALL</a>
+	  <hr>
+	</div>
+	<div class="user-profile-content">
+	  <% users.recently_watched.forEach(path=>{ %>
+	  <img src = <%=path%> >
+	  <% }); %>
+	</div>
+      </div>
+
+      <% if(req.user) {%>
+      <div class="user-profile-recommendations">
+	<div id="sectionLabel" class="user-profile-section">
+	  MOVIE RECOMMENDATIONS BASED ON YOUR FAVORITES
+	  <hr>
+	</div>
+	<div class="user-profile-content">
+	  <% users.recommendations.forEach(movie=>{ %>
+	  <a href="/movies/<%=movie.movie_id%>">
+	    <img src = <%=movie.poster_path%>>
+	  </a>
+	  <% }); %>
+	</div>
+      </div>
+      <% } %>
+
+      <div class="user-profile-reviews">
+	<div id="sectionLabel" class="user-profile-review-section">
+	  RECENTLY REVIEWED
+	  <a class="user-profile-all" href="/users/<%=users.username%>/reviews/all">ALL</a>
+	  <hr>
+	</div>
+	<div class="user-profile-content">
+	  <div class="row user-profile-row">
+	    <div class="user-profile-reviews">
+	      <% user_reviews.forEach(obj=>{ %>
+	      <div class="recent-review-profile-page">
+		<div class="user-profile-reviews-content">
+		  <a href="/movies/<%=obj.movie_id%>">
+		    <img class="pull-left" src=<%= obj.movie_poster %>>
+		  </a>
+
+		  <div class="movie-name user-profile-movie-name">
+		    <a href="/movies/<%=obj.movie_id%>">
+		      <%=obj.movie_title%>
+		    </a>
+		  </div>
+
+		  <div class="user-review user-profile-user-review">
+		    "<%=obj.review_body%>"
+		  </div>
+		  <hr>
+		</div>
+		<% }); %>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+      </div>
+    </div>
+  </body>
+
+  <% include partials/footer.ejs %>
+</html>
+
+
+

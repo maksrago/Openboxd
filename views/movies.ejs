@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <% include partials/head.ejs %>
+  <body>
+    <% include partials/header.ejs %>
+
+    <div class="container">
+
+      <div id="heading">
+	<h1 class="text-center">
+	  Find a film
+	</h1>
+      </div>
+
+      <form action="/movies/search" method="post" style="margin-right:2%">
+	<div class="input-group">
+	  <input type="text" class="form-control input-sm" placeholder="Find a film" name="title">
+	  <button class="btn btn-primary" type="submit">
+	    <i class="fa fa-search"></i>
+	  </button>
+	</div>
+      </form>
+
+      <div id="sectionLabelAlt">
+	TOP 12 FILMS OF THE WEEK
+	<hr>
+      </div>
+
+      <div id="popular">
+	<div class = "text-center">
+	  <% popular.forEach(obj=>{ %>
+	  <a href="/movies/<%=obj.id%>"><img src = <%= obj.poster %> ></a>
+	  <% }); %>
+	</div>
+      </div>
+
+      <% include partials/recent-reviews.ejs %>
+
+    </div>
+
+</div>
+</body>
+<% include partials/footer.ejs %>
+</html>

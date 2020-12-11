@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <% include partials/head.ejs %>
+  <body>
+    <% include partials/header.ejs %>
+    <div class="container">
+
+      <div id="heading">
+	<h1 class="text-center search-page">
+	  Displaying top search results for '<%= search_term %>'
+	</h1>
+      </div>
+
+      <div id="sectionLabelAlt">
+	RESULTS
+	<hr>
+      </div>
+
+      <% search_results.forEach(obj=>{ %>
+      <div class="search-result">
+	<a href="/movies/<%=obj.movie_id%>">
+	  <img class="search-poster" src = <%= obj.poster_path %>></a>
+	<a href="/movies/<%=obj.movie_id%>">
+	  <div class="search-info">
+	    <div class="search-title"><%=obj.title%></div>
+	</a>
+	<div class="search-org-title">Original title: <%=obj.original_title%></div>
+	<div class="search-released">Released: <%=obj.release_date%></div>
+	</div>
+
+      </div>
+
+      <hr style="margin-left:40px;margin-right:40px">
+      <% }); %>
+
+  </body>
+  </div>
+  <% include partials/footer.ejs %>
+</html>

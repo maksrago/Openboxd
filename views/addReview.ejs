@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <% include partials/head.ejs %>
+  <body>
+    <% include partials/header.ejs %>
+
+    <div class="container">
+
+
+      <div id="heading">
+	<h1 class="text-center">
+	  All Reviews
+	</h1>
+      </div>
+
+      <div class="user-profile-reviews">
+	<div id="sectionLabel" class="user-profile-review-section">
+	  RECENTLY REVIEWED
+	  <hr>
+	</div>
+	<div class="user-profile-content">
+	  <div class="row user-profile-row">
+	    <div class="user-profile-reviews">
+	      <% user_reviews.forEach(obj=>{ %>
+	      <div class="recent-review-profile-page">
+		<div class="user-profile-reviews-content">
+
+		  <% if(req.user) { %>
+		  <form action = "/users/<%=req.user.username%>/reviews/delete" method = "post">
+		    <div class="text-white pull-right"><button type="submit" class="btn btn-danger"><i class="text-white fa fa-trash fa-lg"></i></button></div>
+		    <input type="hidden" name="movie_id" value = "<%=obj.movie_id%>" />
+		    <input type="hidden" name="review_body" value = "<%=obj.review_body%>" />
+		    <input type="hidden" name="movie_title" value = "<%=obj.movie_title%>" />
+		  </form>
+		  <% } %>
+
+		  <a href="/movies/<%=obj.movie_id%>">
+		    <img class="pull-left" src=<%= obj.movie_poster %>>
+		  </a>
+
+		  <div class="movie-name user-profile-movie-name">
+		    <a href="/movies/<%=obj.movie_id%>">
+		      <%=obj.movie_title%>
+		    </a>
+		  </div>
+
+		  <div class="user-review user-profile-user-review">
+		    "<%=obj.review_body%>"
+		  </div>
+		  <hr>
+		</div>
+		<% }); %>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+
+
+
+
+
+
+
+      </div>
+    </div>
+
+  </body>
+  <% include partials/footer.ejs %>
+</html>

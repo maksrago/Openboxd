@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <% include partials/head.ejs %>
+  <body>
+    <% include partials/header.ejs %>
+    <div id="index"> </div>
+    <div class="container">
+
+      <% if (req.user) { %>
+      <div id="heading">
+	<h1 class="text-center">
+	  Welcome back <%= req.user.username %>!
+	</h1>
+      </div>
+      <% } %>
+
+      <% if (!req.user) { %>
+      <div id="heading">
+	<h1 class="text-center">
+	  A social network for film lovers!
+	</h1>
+      </div>
+      <% } %>
+
+      <div id="nowPlaying" style="margin-right:5%" class="col-xs-6 col-sm-12 col-md-12">
+	<div id="sectionLabel">
+	  FILMS NOW PLAYING
+	  <hr>
+	</div>
+	<div id="movies" class = "text-center">
+	  <% nowPlaying.forEach(obj=>{ %>
+	  <a href="/movies/<%=obj.id%>"><img id="poster" src = <%= obj.poster %> > </a>
+	  <% }); %>
+	</div>
+
+	<div class="row">
+	  <div class="col">
+	    <h3>Track and share!</h3>
+	    <p>Track all the films you've watched, and send share your thoughts with other users!</p>
+	  </div>
+
+	  <div class="col">
+	    <h3>Get detailed information!</h3>
+	    <p>Know what films you watched, and when you watched them! Track it all in your film diary.</p>
+	  </div>
+	</div>
+      </div>
+
+      <% include partials/recent-reviews.ejs %>
+    </div>
+</div>
+</body>
+<% include partials/footer.ejs %>
+</html>
+
+
+
+
+

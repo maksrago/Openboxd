@@ -1,0 +1,14 @@
+<div class="popular-reviewers">
+  <h3 id="popular-reviewers-text">Popular Reviewers</h3>
+  <% var reviewers = users.slice(0,5) %>
+  <% reviewers.forEach(obj=>{ %>
+  <a href="/users/<%=obj.username%>">
+    <%=obj.username%>
+  </a>
+  <br>
+  <small class="text-secondary">
+    <%=obj.review_count%> reviews
+  </small>
+  <hr>
+  <% }); %>
+</div>

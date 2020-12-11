@@ -1,0 +1,23 @@
+<div class="container-fluid" id="header">
+  <nav class="navbar navbar-dark bg-dark navbar-expand-lg fixed-top">
+    <a class="navbar-brand" href="/" >Openboxd</a>
+    <a class="nav-item nav-link" href="/About">About</a>
+
+    <!-- If user is NOT signed in -->
+    <% if (!req.user) { %>
+    <a class="nav-item nav-link  ml-auto" href="/login" >Sign In</a>
+    <a class="nav-item nav-link" href="/signUp">Create Account</a>
+    <% } %>
+
+    <!-- If user is signed in -->
+    <% if (req.user) { %>
+    <a class="nav-item nav-link ml-auto" href="/users/<%=req.user.username%>/all">My Diary</a>
+    <a class="nav-item nav-link" href="/users/<%=req.user.username%>">My Profile</a>
+    <a class="nav-item nav-link" href="/users/<%=req.user.username%>/reviews/all">My Reviews</a>
+    <a class="nav-item nav-link" href="/logout">Logout</a>
+    <% } %>
+
+    <a class="nav-item nav-link" href="/movies" >Films</a>
+    <a	class="nav-item nav-link" href="/users" >Members</a>
+  </nav>
+</div>
